@@ -3,7 +3,7 @@ import { UploadedFile } from "@/components/FileUpload";
 import { PrimaryFileUpload } from "@/components/PrimaryFileUpload";
 import { SecondaryFileUpload } from "@/components/SecondaryFileUpload";
 import { Inter } from "next/font/google";
-import { Upload, File, Image, FileText } from "lucide-react";
+// import { Upload, File, Image, FileText } from "lucide-react";
 
 const inter = Inter({
   variable: "--font-inter",

@@ -20,7 +20,7 @@ export interface SecondaryFileUploadProps
   accept?: string;
   maxFiles?: number;
   maxSize?: number; // in bytes
-  minSize?: number; // in bytes
+  minSize?: number | undefined; // in bytes
   
   // UI Configuration
   disabled?: boolean;

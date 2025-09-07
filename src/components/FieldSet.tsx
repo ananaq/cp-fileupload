@@ -15,9 +15,9 @@ export interface FieldSetProps
   children: React.ReactNode;
   state?: "default" | "error";
   variant?: "default" | "themable";
-  label?: string | LabelProps;
-  description?: FieldSetDescriptionProps["children"];
-  promptText?: PromptProps["children"];
+  label?: string | LabelProps | undefined;
+  description?: FieldSetDescriptionProps["children"] | undefined;
+  promptText?: PromptProps["children"] | undefined;
   isDisabled?: boolean;
 }
 

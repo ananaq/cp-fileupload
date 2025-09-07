@@ -239,8 +239,8 @@ const ButtonContent: React.FC<{
   variant: ButtonProps["variant"];
   colorScheme: ButtonProps["colorScheme"];
 
-  iconRightClassName?: string;
-  iconLeftClassName?: string;
+  iconRightClassName?: string | undefined;
+  iconLeftClassName?: string | undefined;
 }> = ({
   iconLeft,
   iconRight,

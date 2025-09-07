@@ -10,7 +10,8 @@ import { NvSide } from "../utils/types";
 import { Info } from "lucide-react";
 import { cva } from "class-variance-authority";
 
-export interface TooltipProps extends RTooltip.TooltipProps {
+export interface TooltipProps {
+  children: React.ReactNode;
   /* Label to the tooltip content */
   title?: string | React.ReactNode;
   /* Primary content of the tooltip */
@@ -22,6 +23,11 @@ export interface TooltipProps extends RTooltip.TooltipProps {
   align?: RTooltip.TooltipContentProps["align"];
   "data-test-id"?: string;
   className?: string;
+  delayDuration?: number;
+  defaultOpen?: boolean;
+  disableHoverableContent?: boolean;
+  open?: boolean | undefined;
+  onOpenChange?: ((open: boolean) => void) | undefined;
 }
 
 const tooltipVariants = cva(
@@ -82,8 +88,8 @@ export function Tooltip({
   return (
     <RTooltip.Root
       delayDuration={delayDuration}
-      open={open || undefined}
-      onOpenChange={onOpenChange || undefined}
+      open={open}
+      onOpenChange={onOpenChange}
       {...rest}
     >
       <RTooltip.Trigger asChild>{children}</RTooltip.Trigger>
