@@ -2,6 +2,7 @@ import { Button } from "@/components/Button";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import { PrimaryFileUpload } from "@/components/PrimaryFileUpload";
+import { SecondaryFileUpload } from "@/components/SecondaryFileUpload";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -44,6 +45,18 @@ export default function Home() {
               description="Upload up to 3 files. Supported formats: Images and PDFs. Max size: 5MB per file."
               uploadText="Choose files to upload"
               dragText="or drag and drop files here"
+              help="Files will be processed after upload"
+            />
+          </div>
+          <div className="space-y-4">
+            <SecondaryFileUpload
+              multiple
+              maxFiles={3}
+              maxSize={5 * 1024 * 1024}
+              accept="image/*,application/pdf"
+              label="Upload Files"
+              description="Upload up to 3 files. Supported formats: Images and PDFs. Max size: 5MB per file."
+              uploadText="Choose files to upload"
               help="Files will be processed after upload"
             />
           </div>
