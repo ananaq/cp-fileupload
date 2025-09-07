@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { FileUpload, UploadedFile } from "@/components/FileUpload";
+import { UploadedFile } from "@/components/FileUpload";
 import { PrimaryFileUpload } from "@/components/PrimaryFileUpload";
 import { SecondaryFileUpload } from "@/components/SecondaryFileUpload";
-import { Button } from "@/components/Button";
 import { Inter } from "next/font/google";
 import { Upload, File, Image, FileText } from "lucide-react";
 
@@ -12,36 +11,36 @@ const inter = Inter({
 });
 
 export default function FileUploadDemo() {
-  const [primaryFiles, setPrimaryFiles] = useState<UploadedFile[]>([]);
+  // const [primaryFiles, setPrimaryFiles] = useState<UploadedFile[]>([]);
   const [inlineFiles, setInlineFiles] = useState<UploadedFile[]>([]);
-  const [logoFiles, setLogoFiles] = useState<UploadedFile[]>([]);
+  // const [logoFiles, setLogoFiles] = useState<UploadedFile[]>([]);
   const [newWorkflowFiles, setNewWorkflowFiles] = useState<UploadedFile[]>([]);
-  const [isUploading, setIsUploading] = useState(false);
+  // const [isUploading, setIsUploading] = useState(false);
 
-  const handleUpload = async (files: UploadedFile[]) => {
-    setIsUploading(true);
+  // const handleUpload = async (files: UploadedFile[]) => {
+  //   setIsUploading(true);
     
-    // Simulate upload process
-    const uploadPromises = files.map(async (file) => {
-      const updatedFile = { ...file, status: "uploading" as const };
+  //   // Simulate upload process
+  //   const uploadPromises = files.map(async (file) => {
+  //     const updatedFile = { ...file, status: "uploading" as const };
       
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
+  //     // Simulate network delay
+  //     await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // Simulate success (90% chance)
-      const success = Math.random() > 0.1;
-      return {
-        ...updatedFile,
-        status: success ? "success" as const : "error" as const,
-        error: success ? undefined : "Upload failed. Please try again.",
-      };
-    });
+  //     // Simulate success (90% chance)
+  //     const success = Math.random() > 0.1;
+  //     return {
+  //       ...updatedFile,
+  //       status: success ? "success" as const : "error" as const,
+  //       error: success ? undefined : "Upload failed. Please try again.",
+  //     };
+  //   });
 
-    const results = await Promise.all(uploadPromises);
-    setIsUploading(false);
+  //   const results = await Promise.all(uploadPromises);
+  //   setIsUploading(false);
     
-    return results;
-  };
+  //   return results;
+  // };
 
   return (
     <div
@@ -86,46 +85,6 @@ export default function FileUploadDemo() {
           </div>
         </section>
 
-        {/* Legacy File Upload Component */}
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900">Legacy File Upload Component</h2>
-          <FileUpload
-            variant="primary"
-            size="lg"
-            multiple
-            maxFiles={5}
-            maxSize={10 * 1024 * 1024} // 10MB
-            accept="image/*,application/pdf,.doc,.docx"
-            value={primaryFiles}
-            onChange={setPrimaryFiles}
-            label="Upload Documents"
-            description="Upload up to 5 files. Supported formats: Images, PDF, Word documents. Max size: 10MB per file."
-            uploadText="Choose files to upload"
-            dragText="or drag and drop files here"
-            isUploading={isUploading}
-            help="Files will be processed after upload"
-            uploadIcon={<Upload className="w-6 h-6" />}
-          />
-          
-          {primaryFiles.length > 0 && (
-            <div className="flex gap-3">
-              <Button
-                variant="solid"
-                colorScheme="brand"
-                onClick={() => handleUpload(primaryFiles)}
-                isLoading={isUploading}
-              >
-                Upload Files
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => setPrimaryFiles([])}
-              >
-                Clear All
-              </Button>
-            </div>
-          )}
-        </section>
 
         {/* Secondary File Upload Component */}
         <section className="space-y-4">
@@ -167,39 +126,6 @@ export default function FileUploadDemo() {
   showFormFields={true}
   label="Upload Files"
   description="Click to open the file upload modal"
-/>`}
-            </pre>
-          </div>
-
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="font-medium text-gray-900 mb-3">Secondary File Upload (for modals)</h3>
-            <pre className="text-sm text-gray-600 bg-gray-50 p-4 rounded overflow-x-auto">
-{`<SecondaryFileUpload
-  value={files}
-  onChange={setFiles}
-  accept="image/jpeg,image/png,application/pdf"
-  maxFiles={6}
-  maxSize={5 * 1024 * 1024}
-  multiple
-  label="Library"
-  description="Upload your files here"
-  uploadText="Upload Files"
-/>`}
-            </pre>
-          </div>
-
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="font-medium text-gray-900 mb-3">Legacy File Upload Component</h3>
-            <pre className="text-sm text-gray-600 bg-gray-50 p-4 rounded overflow-x-auto">
-{`<FileUpload
-  variant="primary"
-  multiple
-  maxFiles={5}
-  maxSize={10 * 1024 * 1024}
-  accept="image/*,application/pdf"
-  label="Upload Files"
-  description="Upload up to 5 files"
-  onChange={(files) => console.log(files)}
 />`}
             </pre>
           </div>

@@ -10,7 +10,7 @@ import {
   ChangeEvent,
   ReactNode,
 } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import { AnimatePresence, motion } from "motion/react";
 import { 
   Upload, 
@@ -385,7 +385,7 @@ export const FileUpload = forwardRef<HTMLDivElement, FileUploadProps>(
         label={label}
         description={description}
         state={error ? "error" : "default"}
-        promptText={error || help}
+        promptText={error || help || undefined}
         isDisabled={disabled}
         className={cn(
           containerVariants({ variant, disabled }),

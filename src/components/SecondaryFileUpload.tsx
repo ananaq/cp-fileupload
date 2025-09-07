@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useCallback, useRef, useState, DragEvent, ChangeEvent } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { Upload, File, Image } from "lucide-react";
+import { cva } from "class-variance-authority";
+import { Upload } from "lucide-react";
 import { cn } from "../utils/cn";
 import { Button } from "./Button";
 import { FieldSet } from "./FieldSet";
@@ -85,11 +85,6 @@ const uploadSectionVariants = cva(
   }
 );
 
-const getFileIcon = (file: File) => {
-  if (file.type.startsWith("image/")) return <Image className="w-4 h-4" />;
-  if (file.type.includes("pdf")) return <File className="w-4 h-4" />;
-  return <File className="w-4 h-4" />;
-};
 
 const formatFileSize = (bytes: number): string => {
   if (bytes === 0) return "0 Bytes";
@@ -281,7 +276,7 @@ export const SecondaryFileUpload = React.forwardRef<HTMLDivElement, SecondaryFil
         label={label}
         description={description}
         state={error ? "error" : "default"}
-        promptText={error || help}
+        promptText={error || help || undefined}
         isDisabled={disabled}
         className={cn(
           containerVariants({ disabled }),

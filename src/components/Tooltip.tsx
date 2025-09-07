@@ -82,8 +82,8 @@ export function Tooltip({
   return (
     <RTooltip.Root
       delayDuration={delayDuration}
-      open={open}
-      onOpenChange={onOpenChange}
+      open={open || undefined}
+      onOpenChange={onOpenChange || undefined}
       {...rest}
     >
       <RTooltip.Trigger asChild>{children}</RTooltip.Trigger>

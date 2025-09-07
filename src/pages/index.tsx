@@ -1,7 +1,6 @@
 import { Button } from "@/components/Button";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-import { File, Image } from "lucide-react";
 import { PrimaryFileUpload } from "@/components/PrimaryFileUpload";
 
 const inter = Inter({

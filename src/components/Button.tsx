@@ -200,35 +200,6 @@ const contentWrapperVariants = cva("flex items-center justify-center", {
   ],
 });
 
-const iconVariants = cva([], {
-  variants: {
-    variant: {
-      solid: "text-white",
-      outline: "",
-      ghost:
-        "text-gray-600 group-hover:enabled:text-gray-900 group-active:enabled:text-gray-900 group-data-[active=true]:enabled:text-gray-900 group-focus-visible:enabled:text-gray-900",
-    },
-    colorScheme: {
-      gray: "",
-      brand: "",
-      red: "",
-    },
-  },
-  compoundVariants: [
-    {
-      variant: "outline",
-      colorScheme: "gray",
-      className:
-        "text-gray-600 group-hover:enabled:text-gray-800 group-active:enabled:text-gray-800 group-data-[active=true]:enabled:text-gray-800 group-focus-visible:enabled:text-gray-800",
-    },
-    {
-      variant: "outline",
-      colorScheme: "red",
-      className:
-        "text-red-800 group-hover:enabled:text-red-900 group-active:enabled:text-red-900 group-data-[active=true]:enabled:text-red-900 group-focus-visible:enabled:text-red-900",
-    },
-  ],
-});
 
 export type ButtonClassNameProp =
   | string
@@ -274,9 +245,6 @@ const ButtonContent: React.FC<{
   iconLeft,
   iconRight,
   children,
-  size,
-  variant,
-  colorScheme,
   iconLeftClassName,
   iconRightClassName,
 }) => {
@@ -430,8 +398,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 size={size}
                 variant={variant}
                 colorScheme={colorScheme}
-                iconLeftClassName={classNames.iconLeft}
-                iconRightClassName={classNames.iconRight}
+                iconLeftClassName={classNames.iconLeft || undefined}
+                iconRightClassName={classNames.iconRight || undefined}
               >
                 {children}
               </ButtonContent>
@@ -453,8 +421,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             size={size}
             variant={variant}
             colorScheme={colorScheme}
-            iconLeftClassName={classNames.iconLeft}
-            iconRightClassName={classNames.iconRight}
+            iconLeftClassName={classNames.iconLeft || undefined}
+            iconRightClassName={classNames.iconRight || undefined}
           >
             {children}
           </ButtonContent>

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { Upload, File } from "lucide-react";
+import { cva } from "class-variance-authority";
+import { Upload } from "lucide-react";
 import { cn } from "../utils/cn";
 import { Button } from "./Button";
 import { Modal, ModalContent, ModalHeader, ModalTitle, ModalFooter, ModalCloseButton } from "./Modal";
@@ -175,9 +175,6 @@ export const PrimaryFileUpload = React.forwardRef<HTMLDivElement, PrimaryFileUpl
       return files.length > 0 ? "Change files" : uploadText;
     };
 
-    const getDragText = () => {
-      return files.length > 0 ? "" : dragText;
-    };
 
     return (
       <>
@@ -300,7 +297,7 @@ export const PrimaryFileUpload = React.forwardRef<HTMLDivElement, PrimaryFileUpl
                 accept={accept}
                 maxFiles={maxFiles}
                 maxSize={maxSize}
-                minSize={minSize}
+                minSize={minSize || undefined}
                 multiple={multiple}
                 label="Library"
                 description="Upload your files here"
