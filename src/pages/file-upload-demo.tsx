@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FileUpload, UploadedFile } from "@/components/FileUpload";
+import { PrimaryFileUpload } from "@/components/PrimaryFileUpload";
+import { SecondaryFileUpload } from "@/components/SecondaryFileUpload";
 import { Button } from "@/components/Button";
 import { Inter } from "next/font/google";
 import { Upload, File, Image, FileText } from "lucide-react";
@@ -13,6 +15,7 @@ export default function FileUploadDemo() {
   const [primaryFiles, setPrimaryFiles] = useState<UploadedFile[]>([]);
   const [inlineFiles, setInlineFiles] = useState<UploadedFile[]>([]);
   const [logoFiles, setLogoFiles] = useState<UploadedFile[]>([]);
+  const [newWorkflowFiles, setNewWorkflowFiles] = useState<UploadedFile[]>([]);
   const [isUploading, setIsUploading] = useState(false);
 
   const handleUpload = async (files: UploadedFile[]) => {
@@ -54,9 +57,38 @@ export default function FileUploadDemo() {
           </p>
         </div>
 
-        {/* Primary Upload - Multiple Files */}
+        {/* New File Upload Workflow */}
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900">Primary Upload (Multiple Files)</h2>
+          <h2 className="text-xl font-semibold text-gray-900">New File Upload Workflow</h2>
+          <p className="text-gray-600">
+            This demonstrates the complete file upload workflow as designed in Figma:
+          </p>
+          <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
+            <li>Primary button triggers modal with form fields</li>
+            <li>Modal contains secondary file upload component</li>
+            <li>File cards with hover states and floating remove buttons</li>
+            <li>File preview grid with JPG, PNG, PDF support</li>
+          </ul>
+          
+          <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <PrimaryFileUpload
+              value={newWorkflowFiles}
+              onChange={setNewWorkflowFiles}
+              accept="image/jpeg,image/png,application/pdf"
+              maxFiles={10}
+              maxSize={5 * 1024 * 1024} // 5MB
+              multiple
+              modalTitle="Product Details"
+              showFormFields={true}
+              label="Upload Files"
+              description="Click to open the file upload modal"
+            />
+          </div>
+        </section>
+
+        {/* Legacy File Upload Component */}
+        <section className="space-y-4">
+          <h2 className="text-xl font-semibold text-gray-900">Legacy File Upload Component</h2>
           <FileUpload
             variant="primary"
             size="lg"
@@ -95,132 +127,24 @@ export default function FileUploadDemo() {
           )}
         </section>
 
-        {/* Inline Upload - Single File */}
+        {/* Secondary File Upload Component */}
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900">Inline Upload (Single File)</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FileUpload
-              variant="inline"
-              multiple={false}
-              accept=".csv,.xlsx,.xls"
+          <h2 className="text-xl font-semibold text-gray-900">Secondary File Upload Component</h2>
+          <p className="text-gray-600">
+            This is the secondary file upload component used inside the modal:
+          </p>
+          
+          <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <SecondaryFileUpload
               value={inlineFiles}
               onChange={setInlineFiles}
-              label="Import Data"
-              description="Upload a CSV or Excel file to import data"
-              uploadText="Choose file"
-              help="CSV and Excel files supported"
-              uploadIcon={<FileText className="w-5 h-5" />}
-            />
-            
-            <div className="space-y-4">
-              <h3 className="font-medium text-gray-900">File Requirements</h3>
-              <ul className="text-sm text-gray-600 space-y-1">
-                <li>• CSV, XLSX, or XLS format</li>
-                <li>• Maximum file size: 5MB</li>
-                <li>• First row should contain headers</li>
-                <li>• UTF-8 encoding recommended</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Logo Upload - Image Preview */}
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900">Logo Upload (Image Preview)</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <FileUpload
-              variant="primary"
-              multiple={false}
-              accept="image/*"
-              maxSize={2 * 1024 * 1024} // 2MB
-              value={logoFiles}
-              onChange={setLogoFiles}
-              label="Company Logo"
-              description="Upload your company logo. Recommended: SVG or PNG format, square aspect ratio."
-              uploadText="Choose logo"
-              dragText="or drag and drop logo here"
-              help="SVG, PNG, or JPG format. Max size: 2MB"
-              uploadIcon={<Image className="w-6 h-6" />}
-            />
-            
-            {logoFiles.length > 0 && logoFiles[0].preview && (
-              <div className="space-y-4">
-                <h3 className="font-medium text-gray-900">Preview</h3>
-                <div className="border border-gray-200 rounded-lg p-6 bg-white">
-                  <div className="flex flex-col items-center space-y-4">
-                    <img
-                      src={logoFiles[0].preview}
-                      alt="Logo preview"
-                      className="max-w-32 max-h-32 object-contain"
-                    />
-                    <div className="text-center">
-                      <p className="text-sm font-medium text-gray-900">
-                        {logoFiles[0].file.name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {(logoFiles[0].file.size / 1024).toFixed(1)} KB
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* Error States */}
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900">Error States</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FileUpload
-              variant="inline"
-              error="This file is too large. Please choose a file smaller than 1MB."
-              label="Upload with Error"
-              description="This demonstrates an error state"
-              uploadIcon={<File className="w-5 h-5" />}
-            />
-            
-            <FileUpload
-              variant="inline"
-              disabled
-              label="Disabled Upload"
-              description="This demonstrates a disabled state"
-              uploadIcon={<File className="w-5 h-5" />}
-            />
-          </div>
-        </section>
-
-        {/* Different Sizes */}
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900">Different Sizes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <FileUpload
-              variant="inline"
-              size="xs"
-              label="Extra Small"
-              uploadText="Choose file"
-              uploadIcon={<File className="w-4 h-4" />}
-            />
-            <FileUpload
-              variant="inline"
-              size="sm"
-              label="Small"
-              uploadText="Choose file"
-              uploadIcon={<File className="w-4 h-4" />}
-            />
-            <FileUpload
-              variant="inline"
-              size="md"
-              label="Medium"
-              uploadText="Choose file"
-              uploadIcon={<File className="w-5 h-5" />}
-            />
-            <FileUpload
-              variant="inline"
-              size="lg"
-              label="Large"
-              uploadText="Choose file"
-              uploadIcon={<File className="w-5 h-5" />}
+              accept="image/jpeg,image/png,application/pdf"
+              maxFiles={6}
+              maxSize={5 * 1024 * 1024} // 5MB
+              multiple
+              label="Library"
+              description="Upload your files here"
+              uploadText="Upload Files"
             />
           </div>
         </section>
@@ -228,8 +152,44 @@ export default function FileUploadDemo() {
         {/* Usage Examples */}
         <section className="space-y-4">
           <h2 className="text-xl font-semibold text-gray-900">Usage Examples</h2>
+          
           <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="font-medium text-gray-900 mb-3">Basic Usage</h3>
+            <h3 className="font-medium text-gray-900 mb-3">Primary File Upload with Modal</h3>
+            <pre className="text-sm text-gray-600 bg-gray-50 p-4 rounded overflow-x-auto">
+{`<PrimaryFileUpload
+  value={files}
+  onChange={setFiles}
+  accept="image/jpeg,image/png,application/pdf"
+  maxFiles={10}
+  maxSize={5 * 1024 * 1024}
+  multiple
+  modalTitle="Product Details"
+  showFormFields={true}
+  label="Upload Files"
+  description="Click to open the file upload modal"
+/>`}
+            </pre>
+          </div>
+
+          <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <h3 className="font-medium text-gray-900 mb-3">Secondary File Upload (for modals)</h3>
+            <pre className="text-sm text-gray-600 bg-gray-50 p-4 rounded overflow-x-auto">
+{`<SecondaryFileUpload
+  value={files}
+  onChange={setFiles}
+  accept="image/jpeg,image/png,application/pdf"
+  maxFiles={6}
+  maxSize={5 * 1024 * 1024}
+  multiple
+  label="Library"
+  description="Upload your files here"
+  uploadText="Upload Files"
+/>`}
+            </pre>
+          </div>
+
+          <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <h3 className="font-medium text-gray-900 mb-3">Legacy File Upload Component</h3>
             <pre className="text-sm text-gray-600 bg-gray-50 p-4 rounded overflow-x-auto">
 {`<FileUpload
   variant="primary"
@@ -245,39 +205,7 @@ export default function FileUploadDemo() {
           </div>
         </section>
 
-        {/* API Documentation */}
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900">API Documentation</h2>
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h3 className="font-medium text-gray-900 mb-3">Props</h3>
-            <div className="space-y-3 text-sm">
-              <div>
-                <code className="bg-gray-100 px-2 py-1 rounded">variant</code>
-                <span className="text-gray-600 ml-2">"primary" | "inline" - Visual style of the upload area</span>
-              </div>
-              <div>
-                <code className="bg-gray-100 px-2 py-1 rounded">multiple</code>
-                <span className="text-gray-600 ml-2">boolean - Allow multiple file selection</span>
-              </div>
-              <div>
-                <code className="bg-gray-100 px-2 py-1 rounded">maxFiles</code>
-                <span className="text-gray-600 ml-2">number - Maximum number of files allowed</span>
-              </div>
-              <div>
-                <code className="bg-gray-100 px-2 py-1 rounded">maxSize</code>
-                <span className="text-gray-600 ml-2">number - Maximum file size in bytes</span>
-              </div>
-              <div>
-                <code className="bg-gray-100 px-2 py-1 rounded">accept</code>
-                <span className="text-gray-600 ml-2">string - Accepted file types (e.g., "image/*", ".pdf")</span>
-              </div>
-              <div>
-                <code className="bg-gray-100 px-2 py-1 rounded">onChange</code>
-                <span className="text-gray-600 ml-2">(files: UploadedFile[]) =&gt; void - Callback when files change</span>
-              </div>
-            </div>
-          </div>
-        </section>
+    
       </main>
     </div>
   );

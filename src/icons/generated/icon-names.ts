@@ -5,4 +5,5 @@ export const IconNames = [
   'house',
   'info',
   'loader',
+  'upload',
 ]

@@ -5,3 +5,4 @@ export type IconName =
   | 'house'
   | 'info'
   | 'loader'
+  | 'upload'

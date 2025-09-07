@@ -7,7 +7,7 @@ import {
 } from "@radix-ui/react-tooltip";
 import { cn } from "../utils/cn";
 import { NvSide } from "../utils/types";
-import { Icon } from "./Icon";
+import { Info } from "lucide-react";
 import { cva } from "class-variance-authority";
 
 export interface TooltipProps extends RTooltip.TooltipProps {
@@ -64,7 +64,7 @@ const tooltipVariants = cva(
  * @param styles - Custom styles to apply to different parts of the component.
  */
 export function Tooltip({
-  children = <Icon name="info" className="cursor-help text-gray-500" />,
+  children = <Info className="cursor-help text-gray-500 w-4 h-4" />,
   side = "top",
   offset = 8,
   align = "center",

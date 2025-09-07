@@ -14,8 +14,8 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "../utils/cn";
 import { NvSize } from "../utils/types";
-import { Icon, IconName } from "./Icon";
 import { getStringFromChildrenProp } from "@/utils/get-string-from-children-prop";
+import { Loader2 } from "lucide-react";
 
 export const buttonVariants = cva(
   [
@@ -246,8 +246,8 @@ export interface ButtonProps
     "disabled" | "className"
   > {
   asChild?: boolean;
-  iconRight?: Exclude<ReactNode, string> | IconName;
-  iconLeft?: Exclude<ReactNode, string> | IconName;
+  iconRight?: ReactNode;
+  iconLeft?: ReactNode;
   size?: NvSize;
   variant?: VariantProps<typeof buttonVariants>["variant"];
   colorScheme?: VariantProps<typeof buttonVariants>["colorScheme"];
@@ -282,30 +282,16 @@ const ButtonContent: React.FC<{
 }) => {
   return (
     <>
-      {typeof iconLeft === "string" ? (
-        <Icon
-          name={iconLeft as IconName}
-          size={size}
-          className={cn(
-            iconVariants({ variant, colorScheme }),
-            iconLeftClassName
-          )}
-        />
-      ) : (
-        iconLeft
+      {iconLeft && (
+        <span className={cn(iconLeftClassName)}>
+          {iconLeft}
+        </span>
       )}
       {children}
-      {typeof iconRight === "string" ? (
-        <Icon
-          name={iconRight as IconName}
-          size={size}
-          className={cn(
-            iconVariants({ variant, colorScheme }),
-            iconRightClassName
-          )}
-        />
-      ) : (
-        iconRight
+      {iconRight && (
+        <span className={cn(iconRightClassName)}>
+          {iconRight}
+        </span>
       )}
     </>
   );
@@ -420,7 +406,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               exit={{ opacity: 0, y: 10, filter: "blur(5px)" }}
               transition={{ duration: 0.15 }}
             >
-              <Icon name="loader" className="animate-spin" size={size} />
+              <Loader2 className="animate-spin w-4 h-4" />
               {loadingText && <span className="ml-2">{loadingText}</span>}
             </motion.span>
           ) : (

@@ -7,8 +7,8 @@ import {
 } from "@radix-ui/react-label";
 import { cva } from "class-variance-authority";
 import { cn } from "../utils/cn";
-import { Icon, IconName } from "./Icon";
 import { Tooltip } from "./Tooltip";
+import { Info, X, Asterisk } from "lucide-react";
 
 export interface FieldSetProps
   extends Omit<React.ComponentPropsWithoutRef<"fieldset">, "children"> {
@@ -193,7 +193,7 @@ export const Label = ({
             title="Required"
             className="bg-ct-button-bg text-ct-button-text flex h-2.5 w-2.5 items-center justify-center rounded-full"
           >
-            <Icon name="asterisk" className="h-2.5 w-2.5" />
+            <Asterisk className="h-2.5 w-2.5" />
           </span>
         </Tooltip>
       );
@@ -223,10 +223,9 @@ export const Label = ({
       {children}
       {tooltip && (
         <Tooltip content={tooltip}>
-          <Icon
-            name="info"
+          <Info
             className={cn(
-              "cursor-default text-gray-500",
+              "cursor-default text-gray-500 w-4 h-4",
               auxiliaryLabelVariants({ variant })
             )}
           />
@@ -287,7 +286,7 @@ FieldSetDescription.displayName = "FieldSetDescription";
 
 export interface PromptProps {
   state: "help" | "error";
-  icon?: IconName;
+  icon?: React.ReactNode;
   showIcon?: boolean;
   isDisabled?: boolean;
   children: string;
@@ -320,10 +319,7 @@ export const Prompt = ({
       data-test-id={dataTestId}
     >
       {showIcon && (
-        <Icon
-          name={icon || (state === "help" ? "info" : "circle-x")}
-          size="xs"
-        />
+        icon || (state === "help" ? <Info className="w-3 h-3" /> : <X className="w-3 h-3" />)
       )}
       <p className="line-clamp-2">{children}</p>
     </div>
